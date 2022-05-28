@@ -10,6 +10,7 @@ import { ProductsItems } from "./productsItems/ProductsItems.js";
 
 // function for drop down a lists and add acvite class to selected items (add background to selected items)
 const filterBtnControl = (button) => {
+  // to hide lists when use cliks somewhere on the page
   document.addEventListener("click", (e) => {
     const clickedElement = e.target;
     if (clickedElement.closest(".filter-column__container") === null) {
@@ -82,16 +83,7 @@ const filterListBtnsControl = () => {
   const saveSortBtn = document.querySelector(
     ".filter-column__container.sort .saveBtn"
   );
-  saveSortBtn.addEventListener("click", (e) => {
-    const saveBtn = e.target;
-    const saveBtnContainer = saveBtn.parentElement;
-    const activeSortOption = saveBtnContainer.querySelector(".active");
-    let selectedSortOption = getItemsFromLocalStorage("sortMethod");
-    // swap sort method that was selected before to actually clicked
-    selectedSortOption = activeSortOption.innerText;
-    // save clicked sort methos in local storage
-    saveInLocalStorage("sortMethod", selectedSortOption);
-  });
+  saveSortBtn.addEventListener("click", (e) => saveSortBtnControl(e));
 
   const saveBrandsBtn = document.querySelector(
     ".filter-column__container.brands .saveBtn"
@@ -127,14 +119,7 @@ const filterListBtnsControl = () => {
     ".filter-column__container button"
   );
   listBtns.forEach((button) => {
-    button.addEventListener("click", () => {
-      let selectedSortOption = getItemsFromLocalStorage("sortMethod");
-      renderProductsInOrder(selectedSortOption);
-      // rerender products, according to selected sort method
-      // main container of products to rerender component in written below functions
-      const productsContainer = document.getElementById("products");
-      rerender(productsContainer, Products);
-    });
+    button.addEventListener("click", saveResetFilterBtnsControl);
   });
 
   const searchInput = document.querySelector(".filter-column.search input");
@@ -206,6 +191,26 @@ const closeTabControl = (button) => {
 };
 
 // reusable functions for navbar main functions
+
+const saveResetFilterBtnsControl = () => {
+  let selectedSortOption = getItemsFromLocalStorage("sortMethod");
+  // rerender products, according to selected sort method
+  renderProductsInOrder(selectedSortOption);
+  // main container of products to rerender component in written below functions
+  const productsContainer = document.getElementById("products");
+  rerender(productsContainer, Products);
+};
+
+const saveSortBtnControl = (e) => {
+  const saveBtn = e.target;
+  const saveBtnContainer = saveBtn.parentElement;
+  const activeSortOption = saveBtnContainer.querySelector(".active");
+  let selectedSortOption = getItemsFromLocalStorage("sortMethod");
+  // swap sort method that was selected before to actually clicked
+  selectedSortOption = activeSortOption.innerText;
+  // save clicked sort methos in local storage
+  saveInLocalStorage("sortMethod", selectedSortOption);
+};
 
 const removeSelectedItemsFromStorage = (button, buttonTxt, localStorageKey) => {
   if (button.innerText == buttonTxt) {
@@ -336,6 +341,13 @@ const mobileSortScreenControl = () => {
 
   const options = screen.querySelectorAll(".filter-methods > li");
   options.forEach((option) => {
+    const sortMethod =
+      getItemsFromLocalStorage("sortMethod").length === 0
+        ? "most popular"
+        : getItemsFromLocalStorage("sortMethod");
+    if (sortMethod.toLowerCase() === option.innerText.toLowerCase()) {
+      option.classList.add("active");
+    }
     option.addEventListener("click", (e) => {
       // remove active class
       screen.querySelector("li.active").classList.remove("active");
@@ -343,6 +355,11 @@ const mobileSortScreenControl = () => {
       const selectedOption = e.target;
       selectedOption.classList.add("active");
     });
+  });
+  const saveBtn = screen.querySelector(".saveBtn");
+  saveBtn.addEventListener("click", (e) => {
+    saveSortBtnControl(e);
+    saveResetFilterBtnsControl();
   });
 };
 

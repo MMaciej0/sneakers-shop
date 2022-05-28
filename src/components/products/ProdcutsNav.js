@@ -149,7 +149,8 @@ const filterListBtnsControl = () => {
 
 // function that controls products order after click on save btn in drop down lists and after reload the page
 export const renderProductsInOrder = async (method) => {
-  const selectedMethod = method.length === 0 ? "MOST POPULAR" : method;
+  const selectedMethod =
+    method.length === 0 ? "MOST POPULAR" : method.toUpperCase();
   let products = await getProducts();
   let selectedBrands = getItemsFromLocalStorage("brands");
   let selectedColors = getItemsFromLocalStorage("colors");
@@ -160,7 +161,6 @@ export const renderProductsInOrder = async (method) => {
   // filter products by search input
   const input = document.querySelector(".filter-column.search input");
   if (input) products = selectProductsBySearch(products, input.value);
-
   // sort
   switch (selectedMethod) {
     case "MOST POPULAR":
@@ -168,6 +168,7 @@ export const renderProductsInOrder = async (method) => {
       break;
     case "LOWEST PRICE":
       products.sort((a, b) => a.price - b.price);
+
       break;
     case "HIGHEST PRICE":
       products.sort((a, b) => b.price - a.price);

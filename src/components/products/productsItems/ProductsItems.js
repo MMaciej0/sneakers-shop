@@ -4,7 +4,7 @@ import {
   getProduct,
   saveInLocalStorage,
 } from "../../../localStorage.js";
-import { renderProductsInOrder } from "../ProdcutsNav.js";
+
 import {
   checkIfInCart,
   convertImageSrcToArray,
@@ -14,6 +14,7 @@ import {
   setCartValues,
   showCart,
 } from "../../../utils.js";
+import { renderProductsInOrder } from "../productsNav/ProductsNavReusable.js";
 
 const bagBtnControl = (bagBtn) => {
   const id = bagBtn.dataset.id;

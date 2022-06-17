@@ -344,9 +344,14 @@ a {
 }
 
 .filter-mobile__screen {
-  opacity: 0;
-  transform: translateY(101%);
+  transform: translateX(100%);
   transition: 0.5s transform ease-in-out;
+  position: fixed;
+  inset: 0;
+  background-color: hsl(var(--grayish-blue), 0.8);
+  backdrop-filter: blur(2rem);
+  z-index: 1;
+  padding: 3rem;
 }
 
 .filter-methods {
@@ -378,16 +383,18 @@ a {
   align-items: center;
 }
 
-.filter-methods button:first-of-type {
+.filter-buttons button:first-of-type {
   margin-top: 3rem;
 }
 
-.filter-methods button {
+.filter-buttons button {
   margin-top: 2rem;
   width: 100%;
   cursor: pointer;
   padding-block: 1rem;
   background-color: transparent;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .filter-tabs {
@@ -419,6 +426,12 @@ a {
 }
 
 @media (max-width: 768px) {
+  /* visible only on large screens */
+  .filter-column__container {
+    display: none;
+  }
+
+  /* filter nav buttons on main page */
   .filter-mobile__btns {
     width: 100%;
     display: flex;
@@ -433,57 +446,70 @@ a {
     font-weight: 600;
   }
 
+  /* main container */
   .filter-mobile__screen[data-visible="true"] {
-    opacity: 1;
-    position: fixed;
-    inset: 0;
-    background-color: hsl(var(--grayish-blue), 0.8);
-    backdrop-filter: blur(2rem);
-    z-index: 1;
-    padding: 3rem;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
-  .screen-close {
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
+  .filter-mobile__screen .screen-container {
+    height: 100%;
+    padding-bottom: 3rem;
+  }
+
+  .screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .screen-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow: scroll;
+  }
+
+  .screen-header > .screen-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .screen-header > .fa-chevron-left,
+  .screen-header > .fa-window-close {
     font-size: 2.5rem;
     cursor: pointer;
   }
 
-  .screen-header {
-    font-size: 2.5rem;
+  .filter-buttons button {
+    border: 3px solid hsl(var(--black), 0.6);
+    font-size: 2rem;
     font-weight: 600;
-  }
-
-  .filter-column__container {
-    display: none;
-  }
-
-  .screen-container > .filter-methods {
-    display: block;
-    margin-top: 3rem;
+    width: 100%;
+    padding-block: 1rem;
+    margin-block: 0.8rem;
   }
 
   .filter-methods {
     width: 100%;
+    display: block;
+    margin-top: 1rem;
+    overflow: scroll;
   }
 
   .filter-methods li {
-    display: flex;
-    justify-content: space-between;
     cursor: pointer;
+    padding-block: 2rem;
+  }
+
+  .filter-prop {
+    flex: 1;
+    font-weight: bold;
   }
 
   .filter-methods li.active {
     border-bottom: 2px solid hsl(var(--white));
-  }
-
-  .filter-methods button {
-    border: 3px solid hsl(var(--black), 0.4);
-    font-size: 2rem;
-    font-weight: 600;
   }
 }
 

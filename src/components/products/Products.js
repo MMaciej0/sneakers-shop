@@ -1,5 +1,5 @@
-import { ProductsNav } from "./ProdcutsNav.js";
 import { ProductsItems } from "./productsItems/ProductsItems.js";
+import { ProductsNav } from "./productsNav/ProductsNav.js";
 
 export const Products = {
   after_render: () => {

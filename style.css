@@ -551,14 +551,14 @@ a {
     background-color: hsl(var(--orange-primary), 0.25);
   }
 
-  .filter-methods button {
+  .filter-buttons button {
     border: 2px solid hsl(var(--orange-primary), 0.4);
     font-size: 2rem;
     font-weight: 500;
     transition: var(--mainTransition);
   }
 
-  .filter-methods button:hover {
+  .filter-buttons button:hover {
     background-color: hsl(var(--orange-primary), 0.8);
     border-color: hsl(var(--white));
   }

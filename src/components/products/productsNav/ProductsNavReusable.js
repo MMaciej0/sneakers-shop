@@ -92,9 +92,18 @@ export const saveResetFilterBtnsControl = () => {
   const filterTabs = document.querySelector(".filter-tabs");
   rerender(filterTabs, ProductsNavTabs);
   // hide drop down list
-  document
-    .querySelector(".filter-column__container.active")
-    .classList.remove("active");
+  const dropDownList = document.querySelector(
+    ".filter-column__container.active"
+  );
+  if (dropDownList) {
+    dropDownList.classList.remove("active");
+  }
+  const mobileScreen = document.querySelector(
+    ".filter-mobile__screen[data-visible='true']"
+  );
+  if (mobileScreen) {
+    mobileScreen.setAttribute("data-visible", "false");
+  }
 };
 
 // function to load previously selected products and add active to list

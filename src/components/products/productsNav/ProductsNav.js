@@ -83,10 +83,16 @@ const mobileFilterScreenControl = async () => {
       const selectedProp = e.target.innerText.toLowerCase();
       if (selectedProp === "brands") {
         propHeader.innerText = "Brands";
-        propBody.innerHTML = renderFilterBrands("Clear Filters", products);
+        propBody.innerHTML = await renderFilterBrands(
+          "Clear Filters",
+          products
+        );
       } else if (selectedProp === "colors") {
         propHeader.innerText = "Colors";
-        propBody.innerHTML = renderFilterColors("Clear Filters", products);
+        propBody.innerHTML = await renderFilterColors(
+          "Clear Filters",
+          products
+        );
       }
       propScreen.setAttribute("data-visible", true);
       // functionality for all prop screens when open

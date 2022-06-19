@@ -4,7 +4,8 @@ import {
   saveInLocalStorage,
 } from "../../../localStorage.js";
 import { rerender } from "../../../utils.js";
-import { Products } from "../Products.js";
+import { ProductsItems } from "../productsItems/ProductsItems.js";
+import { ProductsNavTabs } from "./ProductsNavTabs.js";
 
 export const renderSortMethods = () => {
   return `
@@ -21,8 +22,7 @@ export const renderSortMethods = () => {
         `;
 };
 
-export const renderFilterBrands = async () => {
-  const products = await getProducts();
+export const renderFilterBrands = async (clearBtnTxt, products) => {
   const productsBrands = products.map((product) => ({
     brand: product.brand,
     logo: product.brand_logo,
@@ -43,13 +43,12 @@ export const renderFilterBrands = async () => {
     </ul>
     <div class="filter-buttons">
       <button class="filter-save">Save</button>
-      <button class="filter-clear">Clear Filters</button>
+      <button class="filter-clear">${clearBtnTxt}</button>
     </div>
       `;
 };
 
-export const renderFilterColors = async () => {
-  const products = await getProducts();
+export const renderFilterColors = async (clearBtnTxt, products) => {
   const productsColors = products.map((product) => product.color).sort();
   const productsUniqueColors = [...new Set(productsColors)];
   return `
@@ -66,7 +65,7 @@ export const renderFilterColors = async () => {
     </ul>
     <div class="filter-buttons">
       <button class="filter-save">Save</button>
-      <button class="filter-clear">Clear Filters</button>
+      <button class="filter-clear">${clearBtnTxt}</button>
     </div>
       `;
 };
@@ -88,8 +87,14 @@ export const saveResetFilterBtnsControl = () => {
   // rerender products, according to selected sort method
   renderProductsInOrder(selectedSortOption);
   // main container of products to rerender component in written below functions
-  const productsContainer = document.getElementById("products");
-  rerender(productsContainer, Products);
+  const productsItems = document.querySelector(".products-center");
+  rerender(productsItems, ProductsItems);
+  const filterTabs = document.querySelector(".filter-tabs");
+  rerender(filterTabs, ProductsNavTabs);
+  // hide drop down list
+  document
+    .querySelector(".filter-column__container.active")
+    .classList.remove("active");
 };
 
 // function to load previously selected products and add active to list

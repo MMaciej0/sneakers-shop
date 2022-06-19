@@ -9,7 +9,6 @@ import {
   checkIfInCart,
   convertImageSrcToArray,
   getSingleBagButton,
-  rerender,
   resetBagBtnsAndSizeBtns,
   setCartValues,
   showCart,

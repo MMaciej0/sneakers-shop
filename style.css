@@ -354,7 +354,7 @@ a {
   padding: 3rem;
 }
 
-.filter-methods {
+.filter-list {
   display: none;
   list-style: none;
   padding-block: 2rem;
@@ -397,6 +397,8 @@ a {
   font-weight: bold;
 }
 
+/* filter tabs----------------------- */
+
 .filter-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -424,6 +426,8 @@ a {
   margin-left: 1rem;
   cursor: pointer;
 }
+
+/* -------------------------------------------------- */
 
 @media (max-width: 768px) {
   /* visible only on large screens */
@@ -513,12 +517,14 @@ a {
   }
 }
 
+/* large screens--------------------------------------------- */
+
 @media (min-width: 769px) {
   .filter-column__container {
     position: relative;
   }
 
-  .filter-column__container.active .filter-methods {
+  .filter-column__container.active .filter-list {
     display: block;
     padding-block: 0;
     padding: 1rem;
